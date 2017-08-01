@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associada a um assembly.
-[assembly: AssemblyTitle("test")]
-[assembly: AssemblyDescription("test")]
+[assembly: AssemblyTitle("NecrophosMaster")]
+[assembly: AssemblyDescription("Calculate damage and do combo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("test")]
-[assembly: AssemblyProduct("test")]
-[assembly: AssemblyCopyright("test")]
-[assembly: AssemblyTrademark("test")]
+[assembly: AssemblyCompany("Nothing")]
+[assembly: AssemblyProduct("NecroMaster")]
+[assembly: AssemblyCopyright("bruninjaman")]
+[assembly: AssemblyTrademark("bruninjaman")]
 [assembly: AssemblyCulture("")]
 
 // Definir ComVisible como false torna invisíveis os tipos neste assembly
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Número da Versão
 //      Revisão
 //
-[assembly: AssemblyVersion("1.1.1.1")]
-[assembly: AssemblyFileVersion("1.1.1.1")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

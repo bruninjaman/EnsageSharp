@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{657B63DA-87C9-4BA9-969D-6B5D9ABF0A0F}</ProjectGuid>
+    <ProjectGuid>{0EA14D95-3229-47B9-936E-99A3CCE296BF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>NecrophosMaster</RootNamespace>
-    <AssemblyName>NecrophosMaster</AssemblyName>
+    <RootNamespace>NecroMasterSharp</RootNamespace>
+    <AssemblyName>NecroMasterSharp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,7 +35,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Machine.cs" />
+    <Compile Include="Core\Bootstrap.cs" />
+    <Compile Include="Core\Combo.cs" />
+    <Compile Include="Core\Menu\Hotkey.cs" />
+    <Compile Include="Core\Menu\MenuManager.cs" />
+    <Compile Include="Core\Variables.cs" />
+    <Compile Include="Data\DamageInfo.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +57,7 @@
     <Reference Include="Ensage.SDK">
       <HintPath>D:\Program Files (x86)\Ensage\References\Ensage.SDK.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="SharpDX">
       <HintPath>D:\Program Files (x86)\Ensage\References\SharpDX.dll</HintPath>
     </Reference>
@@ -71,7 +78,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files (x86)\Ensage\References\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

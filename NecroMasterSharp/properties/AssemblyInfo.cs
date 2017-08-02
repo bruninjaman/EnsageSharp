@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associada a um assembly.
-[assembly: AssemblyTitle("NecrophosMaster")]
-[assembly: AssemblyDescription("Calculate damage and do combo")]
+[assembly: AssemblyTitle("NecroMasterSharp")]
+[assembly: AssemblyDescription("Necrophos combo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Nothing")]
-[assembly: AssemblyProduct("NecroMaster")]
-[assembly: AssemblyCopyright("bruninjaman")]
-[assembly: AssemblyTrademark("bruninjaman")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("NecroMasterSharp.properties")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Definir ComVisible como false torna invisíveis os tipos neste assembly
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // O GUID a seguir será destinado à ID de typelib se este projeto for exposto para COM
-[assembly: Guid("7266f6c1-dc45-4856-86a9-b1ead4b5fc05")]
+[assembly: Guid("12435ec9-00ad-4a53-ab14-5af036912b9e")]
 
 // As informações da versão de um assembly consistem nos quatro valores a seguir:
 //

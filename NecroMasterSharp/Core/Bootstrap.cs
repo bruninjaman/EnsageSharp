@@ -14,14 +14,13 @@ namespace NecroMasterSharp.Core
         private void OnLoad(object sender, EventArgs e)
         {
             Combo.OnLoad();
-
-            Game.OnWndProc += Game_OnWndProc;
+            Game.OnUpdate += Game_OnUpdate;
             Drawing.OnDraw += Drawing_OnDraw;
             Orbwalking.Load();
         }
-        private void Game_OnWndProc(EventArgs args)
+        private void Game_OnUpdate(EventArgs args)
         {
-            Combo.OnWndProc();
+            Combo.OnUpdate();
         }
         private void Drawing_OnDraw(EventArgs args)
         {
@@ -30,7 +29,7 @@ namespace NecroMasterSharp.Core
         private void OnClose(object sender, EventArgs e)
         {
             Events.OnClose -= OnClose;
-            Game.OnWndProc -= Game_OnWndProc;
+            Game.OnUpdate -= Game_OnUpdate;
             Drawing.OnDraw -= Drawing_OnDraw;
             Combo.OnClose();
         }

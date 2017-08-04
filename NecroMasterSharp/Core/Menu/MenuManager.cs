@@ -9,11 +9,21 @@ namespace NecroMasterSharp.Core.Menu
 
         public MenuManager()
         {
-            Hotkey = new Hotkey(menu);
+            Menu menu = new Menu("NecroMaster", "NecroMaster", true, "npc_dota_hero_necrolyte", true);
+
+            MenuItem hotkey = new MenuItem("Combo Key", "Combo Key").SetValue(new KeyBind('D', KeyBindType.Press));
+
+            menu.AddItem(hotkey);
+
+            hotkey.ValueChanged += (sender, args) => HKEnable = args.GetNewValue<KeyBind>().Active;
+
+            HKEnable = hotkey.IsActive();
+
             menu.AddToMainMenu();
+
         }
 
-        public Hotkey Hotkey { get; }
+        public bool HKEnable { get; private set; }
 
         public void Dispose()
         {

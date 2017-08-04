@@ -12,7 +12,6 @@ using SharpDX;
 namespace NecroMasterSharp.Core
 {
     using Menu;
-    using Data;
     internal class Combo
     {
 
@@ -30,19 +29,21 @@ namespace NecroMasterSharp.Core
 
         private static ParticleEffect targetParticle;
 
-        public void OnWndProc()
+        public void OnUpdate()
         {
             if (!Game.IsInGame || Game.IsWatchingGame || Game.IsPaused || Variables.Hero == null || Variables.Hero.ClassId != ClassId.CDOTA_Unit_Hero_Necrolyte)
                 return;
-            if (Menu.Hotkey.HKEnable)
+            if (Menu.HKEnable && !sleeper.Sleeping("TARGET"))
             {
-                Utils.Sleep(500, "TARGET");
+                Variables.Target = Variables.Hero.ClosestToMouseTarget(1000);
+                getitems();
+                sleeper.Sleep(Data.Sleepers.LOCKTARGET_TIME, "TARGET");
                 if (Variables.Hero.HasModifier("modifier_item_invisibility_edge_windwalk") || Variables.Hero.HasModifier("modifier_item_silver_edge_windwalk"))//shadowblade
                 {
-                    if (Utils.SleepCheck("BREAK_INVIS"))
+                    if (!sleeper.Sleeping("BREAK_INVIS"))
                     {
                         Variables.Hero.Attack(Variables.Target, false);
-                        Utils.Sleep(250, "BREAK_INVIS");
+                        sleeper.Sleep(Data.Sleepers.ATTACK_TIME, "BREAK_INVIS");
                     }
                 }
                 else
@@ -51,94 +52,93 @@ namespace NecroMasterSharp.Core
                     bool target_lotus_orb = Variables.Target.HasModifier("modifier_item_lotus_orb_active");
                     if (HasLinkens(Variables.Target) && !target_magic_imunity && !target_lotus_orb)
                     {
-                        if (item_force != null && item_force.CanBeCasted() && Utils.SleepCheck("BREAK_LINKENS"))
+                        if (item_force != null && item_force.CanBeCasted() && !sleeper.Sleeping("BREAK_LINKENS"))
                         {
                             item_force.UseAbility(Variables.Target, false);
-                            Utils.Sleep(800, "BREAK_LINKENS");
+                            sleeper.Sleep(Data.Sleepers.BREAK_SPHERE_TIME, "BREAK_LINKENS");
                         }
-                        else if (item_hurricane != null && item_hurricane.CanBeCasted() && Utils.SleepCheck("BREAK_LINKENS"))
+                        else if (item_hurricane != null && item_hurricane.CanBeCasted() && !sleeper.Sleeping("BREAK_LINKENS"))
                         {
                             item_hurricane.UseAbility(Variables.Target, false);
-                            Utils.Sleep(800, "BREAK_LINKENS");
+                            sleeper.Sleep(Data.Sleepers.BREAK_SPHERE_TIME, "BREAK_LINKENS");
                         }
-                        else if (item_malevolence != null && item_malevolence.CanBeCasted() && Utils.SleepCheck("BREAK_LINKENS"))
+                        else if (item_malevolence != null && item_malevolence.CanBeCasted() && !sleeper.Sleeping("BREAK_LINKENS"))
                         {
                             item_malevolence.UseAbility(Variables.Target, false);
-                            Utils.Sleep(800, "BREAK_LINKENS");
+                            sleeper.Sleep(Data.Sleepers.BREAK_SPHERE_TIME, "BREAK_LINKENS");
                         }
-                        else if (item_bloodthorn != null && item_bloodthorn.CanBeCasted() && Utils.SleepCheck("BREAK_LINKENS"))
+                        else if (item_bloodthorn != null && item_bloodthorn.CanBeCasted() && !sleeper.Sleeping("BREAK_LINKENS"))
                         {
                             item_bloodthorn.UseAbility(Variables.Target, false);
-                            Utils.Sleep(800, "BREAK_LINKENS");
+                            sleeper.Sleep(Data.Sleepers.BREAK_SPHERE_TIME, "BREAK_LINKENS");
                         }
-                        else if (item_vyse != null && item_vyse.CanBeCasted() && Utils.SleepCheck("BREAK_LINKENS"))
+                        else if (item_vyse != null && item_vyse.CanBeCasted() && !sleeper.Sleeping("BREAK_LINKENS"))
                         {
                             item_vyse.UseAbility(Variables.Target, false);
-                            Utils.Sleep(800, "BREAK_LINKENS");
+                            sleeper.Sleep(Data.Sleepers.BREAK_SPHERE_TIME, "BREAK_LINKENS");
                         }
-                        else if (item_ethereal != null && item_ethereal.CanBeCasted() && Utils.SleepCheck("BREAK_LINKENS"))
+                        else if (item_ethereal != null && item_ethereal.CanBeCasted() && !sleeper.Sleeping("BREAK_LINKENS"))
                         {
                             item_ethereal.UseAbility(Variables.Target, false);
-                            Utils.Sleep(800, "BREAK_LINKENS");
+                            sleeper.Sleep(Data.Sleepers.BREAK_SPHERE_TIME, "BREAK_LINKENS");
                         }
-                        else if (item_dagon != null && item_dagon.CanBeCasted() && Utils.SleepCheck("BREAK_LINKENS"))
+                        else if (item_dagon != null && item_dagon.CanBeCasted() && !sleeper.Sleeping("BREAK_LINKENS"))
                         {
                             item_dagon.UseAbility(Variables.Target, false);
-                            Utils.Sleep(800, "BREAK_LINKENS");
+                            sleeper.Sleep(Data.Sleepers.BREAK_SPHERE_TIME, "BREAK_LINKENS");
                         }
                     }
                     else
                     {
                         //ULT FIRST
-                        if (ULT != null && ULT.CanBeCasted() && Utils.SleepCheck("ULTIMATO") && !target_magic_imunity && !target_lotus_orb)
+                        if (ULT != null && ULT.CanBeCasted() && !sleeper.Sleeping("ULTIMATO") && !target_magic_imunity && !target_lotus_orb)
                         {
                             ULT.UseAbility(Variables.Target, false);
-                            Utils.Sleep(250, "ULTIMATO");
+                            sleeper.Sleep(Data.Sleepers.SKILL_TIME, "ULTIMATO");
                         }
                         //AMPLIFY ITENS FIRST
-                        if (item_veil != null && item_veil.CanBeCasted() && Utils.SleepCheck("AMP_VEIL") && !target_magic_imunity)
+                        if (item_veil != null && item_veil.CanBeCasted() && !sleeper.Sleeping("AMP_VEIL") && !target_magic_imunity)
                         {
                             item_veil.UseAbility(Variables.Target.Position, false);
-                            Utils.Sleep(250, "AMP_VEIL");
+                            sleeper.Sleep(Data.Sleepers.SKILL_TIME, "AMP_VEIL");
                         }
-                        if (item_ethereal != null && item_ethereal.CanBeCasted() && Utils.SleepCheck("AMP_ETHEREAL") && !target_magic_imunity && !target_lotus_orb)
+                        if (item_ethereal != null && item_ethereal.CanBeCasted() && !sleeper.Sleeping("AMP_ETHEREAL") && !target_magic_imunity && !target_lotus_orb)
                         {
                             item_ethereal.UseAbility(Variables.Target, false);
-                            Utils.Sleep(250, "AMP_ETHEREAL");
+                            sleeper.Sleep(Data.Sleepers.SKILL_TIME, "AMP_ETHEREAL");
                         }
                         //DAMAGE ITENS
-                        if (DP != null && DP.CanBeCasted() && Utils.SleepCheck("DMG_DP") && Variables.Hero.Distance2D(Variables.Target) <= 450 && !target_magic_imunity)
+                        if (DP != null && DP.CanBeCasted() && !sleeper.Sleeping("DMG_DP") && Variables.Hero.Distance2D(Variables.Target) <= 450 && !target_magic_imunity)
                         {
                             DP.UseAbility(false);
-                            Utils.Sleep(250, "DMG_DP");
+                            sleeper.Sleep(Data.Sleepers.SKILL_TIME, "DMG_DP");
                         }
-                        if (item_bloodthorn != null && item_bloodthorn.CanBeCasted() && Utils.SleepCheck("AMP_BLOODTHORN") && !target_magic_imunity && !target_lotus_orb)
+                        if (item_bloodthorn != null && item_bloodthorn.CanBeCasted() && !sleeper.Sleeping("AMP_BLOODTHORN") && !target_magic_imunity && !target_lotus_orb)
                         {
                             item_bloodthorn.UseAbility(Variables.Target, false);
-                            Utils.Sleep(250, "AMP_BLOODTHORN");
+                            sleeper.Sleep(Data.Sleepers.SKILL_TIME, "AMP_BLOODTHORN");
                         }
-                        if (item_malevolence != null && item_malevolence.CanBeCasted() && Utils.SleepCheck("AMP_MALEVOLENCE") && !target_magic_imunity && !target_lotus_orb)
+                        if (item_malevolence != null && item_malevolence.CanBeCasted() && !sleeper.Sleeping("AMP_MALEVOLENCE") && !target_magic_imunity && !target_lotus_orb)
                         {
                             item_malevolence.UseAbility(Variables.Target, false);
-                            Utils.Sleep(250, "AMP_MALEVOLENCE");
+                            sleeper.Sleep(Data.Sleepers.SKILL_TIME, "AMP_MALEVOLENCE");
                         }
-                        if (item_dagon != null && item_dagon.CanBeCasted() && Utils.SleepCheck("DMG_DAGON") &&
+                        if (item_dagon != null && item_dagon.CanBeCasted() && !sleeper.Sleeping("DMG_DAGON") &&
                             (ULT == null || ULT.Cooldown > 0 || ULT.Level <= 0) && !target_magic_imunity && !target_lotus_orb)
                         {
                             item_dagon.UseAbility(Variables.Target, false);
-                            Utils.Sleep(250, "DMG_DAGON");
+                            sleeper.Sleep(Data.Sleepers.SKILL_TIME, "DMG_DAGON");
                         }
                         if ((((ULT == null || ULT.Cooldown > 0 || ULT.Level <= 0 || ULT.ManaCost > Variables.Hero.Mana) && (item_veil == null || item_veil.Cooldown > 0 || item_veil.ManaCost > Variables.Hero.Mana)
                             && (item_ethereal == null || item_ethereal.Cooldown > 0 || item_ethereal.ManaCost > Variables.Hero.Mana) && (DP == null || DP.Cooldown > 0 || Variables.Hero.Distance2D(Variables.Target) >= 450 || DP.ManaCost > Variables.Hero.Mana)
                             && (item_bloodthorn == null || item_bloodthorn.Cooldown > 0 || item_bloodthorn.ManaCost > Variables.Hero.Mana) && (item_malevolence == null || item_malevolence.Cooldown > 0 || item_malevolence.ManaCost > Variables.Hero.Mana)
-                            && (item_dagon == null || item_dagon.Cooldown > 0 || item_dagon.ManaCost > Variables.Hero.Mana)) || target_magic_imunity || target_lotus_orb) && Utils.SleepCheck("delay_atk"))
+                            && (item_dagon == null || item_dagon.Cooldown > 0 || item_dagon.ManaCost > Variables.Hero.Mana)) || target_magic_imunity || target_lotus_orb) && !sleeper.Sleeping("delay_atk"))
                         {
                             if (Variables.Hero.Distance2D(Variables.Target) > 300)
                                 Orbwalking.Orbwalk(Variables.Target);
                             else
                                 Variables.Hero.Attack(Variables.Target, false);
-
-                            Utils.Sleep(250, "delay_atk");
+                            sleeper.Sleep(Data.Sleepers.ATTACK_TIME, "delay_atk");
                         }
                     }
                 }
@@ -226,6 +226,7 @@ namespace NecroMasterSharp.Core
         public void OnClose()
         {
             Menu.Dispose();
+            targetParticle.Dispose();
         }
         public static void getitems()
         {

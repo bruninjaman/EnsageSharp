@@ -37,10 +37,10 @@
   <ItemGroup>
     <Compile Include="Core\Bootstrap.cs" />
     <Compile Include="Core\Combo.cs" />
-    <Compile Include="Core\Menu\Hotkey.cs" />
     <Compile Include="Core\Menu\MenuManager.cs" />
     <Compile Include="Core\Variables.cs" />
     <Compile Include="Data\DamageInfo.cs" />
+    <Compile Include="Data\Sleepers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="properties\AssemblyInfo.cs" />
   </ItemGroup>

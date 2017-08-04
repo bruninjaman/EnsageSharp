@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Linq;
 
-
 using Ensage;
 using Ensage.Common;
 using Ensage.Common.Extensions;
 using Ensage.Common.Objects.UtilityObjects;
 using SharpDX;
-
 
 namespace NecroMasterSharp.Core
 {
@@ -150,6 +148,15 @@ namespace NecroMasterSharp.Core
             if (!Game.IsInGame || Game.IsWatchingGame || Game.IsPaused || Variables.Hero == null || Variables.Hero.ClassId != ClassId.CDOTA_Unit_Hero_Necrolyte)
                 return;
             Variables.Target = Variables.Hero.ClosestToMouseTarget(1000);
+            if (targetParticle == null && Variables.Target != null)
+            {
+                targetParticle = new ParticleEffect(@"particles\ui_mouseactions\range_finder_tower_aoe.vpcf", Variables.Target);
+            }
+            if ((Variables.Target == null || !Variables.Target.IsVisible || !Variables.Target.IsAlive) && targetParticle != null)
+            {
+                targetParticle.Dispose();
+                targetParticle = null;
+            }
             if (Variables.Target != null && targetParticle != null && Variables.Target.IsAlive)
             {
                 targetParticle.SetControlPoint(2, Variables.Hero.Position);

@@ -3,6 +3,8 @@
     using Ensage;
     internal class Items
     {
+        public static Item Item_abyssal { get; set; }
+
         public static Item Item_blademail { get; set; }
 
         public static Item Item_medallion { get; set; }

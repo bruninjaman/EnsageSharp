@@ -62,12 +62,30 @@ namespace ChallengeAcceptedSharp.Core
                     Init.Mana.CheckMana(Variables.Hero, Variables.Target);
                     if (Variables.Hero.Distance2D(Variables.Target.Position) <= ((Init.Items.Item_blink != null && (Init.Items.Item_blink.Cooldown <= 3)) ? (Init.Items.Duel.CastRange + 1200) : (Init.Items.Duel.CastRange + 150)))
                     {
-                        if (Common.Utils.HasLinkens(Variables.Target))
+                        bool break_sphere = (!Common.Utils.IsReadyToBeUsed(Init.Items.Item_blink) && !Common.Utils.IsReadyToBeUsed(Init.Items.Heal));
+                        bool protected_by_linkens = Common.Utils.HasLinkens(Variables.Target);
+                        if (protected_by_linkens && break_sphere)
                         {
                             if (!(Sleep.Sleeping("sphere_malevo") || Sleep.Sleeping("sphere_bloodthorn") || Sleep.Sleeping("sphere_halberd")
-                            || Sleep.Sleeping("sphere_hurricanepike") || Sleep.Sleeping("sphere_forcestaff") || Sleep.Sleeping("sphere_dagon")))
+                            || Sleep.Sleeping("sphere_hurricanepike") || Sleep.Sleeping("sphere_forcestaff") || Sleep.Sleeping("sphere_dagon")
+                            || Sleep.Sleeping("sphere_diffusal") || Sleep.Sleeping("sphere_abyssal") || Sleep.Sleeping("sphere_vyse")))
                             {
-                                if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_malevolence,heromana,duelmana))
+                                if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_forcestaff, heromana, duelmana))
+                                {
+                                    Init.Items.Item_forcestaff.UseAbility(Variables.Target, false);
+                                    Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_forcestaff");
+                                }
+                                else if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_hurricanepike, heromana, duelmana))
+                                {
+                                    Init.Items.Item_hurricanepike.UseAbility(Variables.Target, false);
+                                    Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_hurricanepike");
+                                }
+                                else if (Common.Utils.IsReadyToBeUsed(Init.Items.Item_diffusal))
+                                {
+                                    Init.Items.Item_diffusal.UseAbility(Variables.Target, false);
+                                    Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_diffusal");
+                                }
+                                else if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_malevolence,heromana,duelmana))
                                 {
                                     Init.Items.Item_malevolence.UseAbility(Variables.Target, false);
                                     Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_malevo");
@@ -82,20 +100,20 @@ namespace ChallengeAcceptedSharp.Core
                                     Init.Items.Item_halberd.UseAbility(Variables.Target, false);
                                     Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_halberd");
                                 }
-                                else if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_hurricanepike, heromana, duelmana))
-                                {
-                                    Init.Items.Item_hurricanepike.UseAbility(Variables.Target, false);
-                                    Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_hurricanepike");
-                                }
-                                else if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_forcestaff, heromana, duelmana))
-                                {
-                                    Init.Items.Item_forcestaff.UseAbility(Variables.Target, false);
-                                    Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_forcestaff");
-                                }
                                 else if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_dagon, heromana, duelmana))
                                 {
                                     Init.Items.Item_dagon.UseAbility(Variables.Target, false);
                                     Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_dagon");
+                                }
+                                else if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_abyssal, heromana, duelmana))
+                                {
+                                    Init.Items.Item_abyssal.UseAbility(Variables.Target, false);
+                                    Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_abyssal");
+                                }
+                                else if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_vyse, heromana, duelmana))
+                                {
+                                    Init.Items.Item_vyse.UseAbility(Variables.Target, false);
+                                    Sleep.Sleep(Data.Sleepers.LINKENS_TIME, "sphere_vyse");
                                 }
                             }
                         }
@@ -166,12 +184,12 @@ namespace ChallengeAcceptedSharp.Core
                                 Init.Items.Item_shivas.UseAbility(false);
                                 Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_SHV");
                             }
-                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_malevolence, heromana, duelmana) && !Sleep.Sleeping("USE_MLV"))
+                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_malevolence, heromana, duelmana) && !Sleep.Sleeping("USE_MLV") && !protected_by_linkens)
                             {
                                 Init.Items.Item_malevolence.UseAbility(Variables.Target, false);
                                 Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_MLV");
                             }
-                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_bloodthorn, heromana, duelmana) && !Sleep.Sleeping("USE_BLT"))
+                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_bloodthorn, heromana, duelmana) && !Sleep.Sleeping("USE_BLT") && !protected_by_linkens)
                             {
                                 Init.Items.Item_bloodthorn.UseAbility(Variables.Target, false);
                                 Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_BLT");
@@ -181,12 +199,21 @@ namespace ChallengeAcceptedSharp.Core
                                 Init.Items.Item_satanic.UseAbility(false);
                                 Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_STN");
                             }
-                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_dagon, heromana, duelmana) && !Sleep.Sleeping("USE_DGN"))
+                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_dagon, heromana, duelmana) && !Sleep.Sleeping("USE_DGN") && !protected_by_linkens)
                             {
                                 Init.Items.Item_dagon.UseAbility(Variables.Target, false);
                                 Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_DGN");
                             }
-
+                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_abyssal, heromana, duelmana) && !Sleep.Sleeping("USE_ABY") && !protected_by_linkens)
+                            {
+                                Init.Items.Item_abyssal.UseAbility(Variables.Target, false);
+                                Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_ABY");
+                            }
+                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_vyse, heromana, duelmana) && !Sleep.Sleeping("USE_VYS") && !protected_by_linkens)
+                            {
+                                Init.Items.Item_vyse.UseAbility(Variables.Target, false);
+                                Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_VYS");
+                            }
 
                             List<Item> AllItens = new List<Item>();
                             AllItens.Add(Init.Items.Item_blackkingbar);
@@ -200,7 +227,7 @@ namespace ChallengeAcceptedSharp.Core
                             AllItens.Add(Init.Items.Item_satanic);
                             AllItens.Add(Init.Items.Item_shivas);
 
-                            if (Common.LegionScript.LegionUtils.DuelReady(AllItens,heromana,duelmana) && Common.Utils.IsReadyToBeUsed(Init.Items.Duel))
+                            if (Common.LegionScript.LegionUtils.DuelReady(AllItens,heromana,duelmana) && Common.Utils.IsReadyToBeUsed(Init.Items.Duel) && !protected_by_linkens)
                             {
                                 if (!Sleep.Sleeping("USE_DUEL"))
                                 {
@@ -235,6 +262,8 @@ namespace ChallengeAcceptedSharp.Core
             if (!Game.IsInGame || Game.IsWatchingGame || Game.IsPaused || Variables.Hero == null || Variables.Hero.ClassId != ClassId.CDOTA_Unit_Hero_Legion_Commander)
                 return;
             Variables.Target = Variables.Hero.ClosestToMouseTarget(1000);
+            Init.Items.Item_blink = Hero.FindItem("item_blink");
+            Init.Items.Duel = Hero.Spellbook.SpellR;
             if (Variables.TargetParticle == null && Variables.Target != null)
             {
                 Variables.TargetParticle = new ParticleEffect(@"particles\ui_mouseactions\range_finder_tower_aoe.vpcf", Variables.Target);
@@ -249,6 +278,8 @@ namespace ChallengeAcceptedSharp.Core
                 Variables.TargetParticle.SetControlPoint(2, Variables.Hero.Position);
                 Variables.TargetParticle.SetControlPoint(6, new Vector3(1, 0, 0));
                 Variables.TargetParticle.SetControlPoint(7, Variables.Target.Position);
+                if(Variables.Hero.Distance2D(Variables.Target.Position) <= ((Init.Items.Item_blink != null && (Init.Items.Item_blink.Cooldown <= 3)) ? (Init.Items.Duel.CastRange + 1200) : (Init.Items.Duel.CastRange + 150)))
+                    Drawing.DrawRect(HUDInfo.GetHPbarPosition(Variables.Target) + new Vector2(35, HUDInfo.GetHpBarSizeY() - 60), new Vector2(30, 30), Drawing.GetTexture("materials/ensage_ui/spellicons/legion_commander_duel.vmat_c"));
             }
         }
     }

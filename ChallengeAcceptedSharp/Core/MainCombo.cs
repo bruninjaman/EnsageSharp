@@ -6,6 +6,7 @@ using Ensage.Common.Extensions;
 using Ensage.Common.Objects.UtilityObjects;
 using SharpDX;
 using System.Collections.Generic;
+using System.Linq;
 namespace ChallengeAcceptedSharp.Core
 {
     using Menu;
@@ -42,6 +43,8 @@ namespace ChallengeAcceptedSharp.Core
                 Init.LoadItems.InitItems(Variables.Hero);
                 Sleep.Sleep(Data.Sleepers.LOCK_TARGET_TIME, "TARGET");
                 Variables.Target = Variables.Hero.ClosestToMouseTarget(1000);
+                if (Target == null)
+                    return;
                 float heromana = Variables.Hero.Mana;
                 float duelmana = Init.Items.Duel.ManaCost;
                 if (Common.Utils.AffectedByInvisCrit(Variables.Hero) && ((Variables.Target.MovementSpeed + 45) < Variables.Hero.MovementSpeed) && !Common.Utils.IsReadyToBeUsed(Init.Items.Item_blink) && !Sleep.Sleeping("BREAK_INVIS"))
@@ -60,6 +63,7 @@ namespace ChallengeAcceptedSharp.Core
                 else if(!Sleep.Sleeping("BREAK_INVIS"))
                 {
                     Init.Mana.CheckMana(Variables.Hero, Variables.Target);
+                    Init.Dust.DetectInvis(Variables.Hero, Variables.Target);
                     if (Variables.Hero.Distance2D(Variables.Target.Position) <= ((Init.Items.Item_blink != null && (Init.Items.Item_blink.Cooldown <= 3)) ? (Init.Items.Duel.CastRange + 1200) : (Init.Items.Duel.CastRange + 150)))
                     {
                         bool break_sphere = (!Common.Utils.IsReadyToBeUsed(Init.Items.Item_blink) && !Common.Utils.IsReadyToBeUsed(Init.Items.Heal));

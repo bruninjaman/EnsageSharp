@@ -82,6 +82,7 @@
     <Compile Include="Core\Menu\MenuManager.cs" />
     <Compile Include="Core\Variables.cs" />
     <Compile Include="Data\Sleepers.cs" />
+    <Compile Include="Init\Dust.cs" />
     <Compile Include="Init\Items.cs" />
     <Compile Include="Init\LoadItems.cs" />
     <Compile Include="Init\Mana.cs" />

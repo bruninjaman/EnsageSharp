@@ -32,32 +32,32 @@
             {
                 if(Common.Utils.IsReadyToBeUsed(Items.Item_magicstick) && Items.Item_magicstick.CurrentCharges > 0)
                 {
-                    Items.Item_magicstick.UseAbility();
+                    Items.Item_magicstick.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_magicwand) && Items.Item_magicwand.CurrentCharges > 0)
                 {
-                    Items.Item_magicwand.UseAbility();
+                    Items.Item_magicwand.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_soulring))
                 {
-                    Items.Item_soulring.UseAbility();
+                    Items.Item_soulring.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_arcane))
                 {
-                    Items.Item_arcane.UseAbility();
+                    Items.Item_arcane.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_mango))
                 {
-                    Items.Item_mango.UseAbility();
+                    Items.Item_mango.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_greaves))
                 {
-                    Items.Item_greaves.UseAbility();
+                    Items.Item_greaves.UseAbility(false);
                     return;
                 }
             }
@@ -65,27 +65,27 @@
             {
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_magicstick) && Items.Item_magicstick.CurrentCharges > 0)
                 {
-                    Items.Item_magicstick.UseAbility();
+                    Items.Item_magicstick.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_magicwand) && Items.Item_magicwand.CurrentCharges > 0)
                 {
-                    Items.Item_magicwand.UseAbility();
+                    Items.Item_magicwand.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_mekans))
                 {
-                    Items.Item_mekans.UseAbility();
+                    Items.Item_mekans.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_faeriefire))
                 {
-                    Items.Item_faeriefire.UseAbility();
+                    Items.Item_faeriefire.UseAbility(false);
                     return;
                 }
                 if (Common.Utils.IsReadyToBeUsed(Items.Item_greaves))
                 {
-                    Items.Item_greaves.UseAbility();
+                    Items.Item_greaves.UseAbility(false);
                     return;
                 }
             }

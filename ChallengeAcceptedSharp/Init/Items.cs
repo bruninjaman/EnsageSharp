@@ -61,6 +61,10 @@
 
         public static Item Item_halberd { get; set; }
 
+        public static Item Item_dust { get; set; }
+
+        public static Item Item_sentry { get; set; }
+
         public static Ability Duel { get; set; }
 
         public static Ability Heal { get; set; }

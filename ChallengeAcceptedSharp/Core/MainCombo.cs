@@ -133,6 +133,11 @@ namespace ChallengeAcceptedSharp.Core
                                 Init.Items.Item_blademail.UseAbility(false);
                                 Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_BM");
                             }
+                            if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_mjollnir,heromana,duelmana) && !Sleep.Sleeping("USE_MJL"))
+                            {
+                                Init.Items.Item_mjollnir.UseAbility(Hero, false);
+                                Sleep.Sleep(Data.Sleepers.ITEM_USAGE_TIME, "USE_MJL");
+                            }
                             if (Common.LegionScript.LegionUtils.LeftManaForDuel(Init.Items.Item_blackkingbar, heromana, duelmana) && !Sleep.Sleeping("USE_BKB"))
                             {
                                 Init.Items.Item_blackkingbar.UseAbility(false);
@@ -228,6 +233,7 @@ namespace ChallengeAcceptedSharp.Core
                             AllItens.Add(Init.Items.Item_dagon);
                             AllItens.Add(Init.Items.Item_lotus);
                             AllItens.Add(Init.Items.Item_malevolence);
+                            AllItens.Add(Init.Items.Item_mjollnir);
                             AllItens.Add(Init.Items.Item_satanic);
                             AllItens.Add(Init.Items.Item_shivas);
 

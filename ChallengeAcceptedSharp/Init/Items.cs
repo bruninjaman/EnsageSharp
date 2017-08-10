@@ -9,6 +9,8 @@
 
         public static Item Item_medallion { get; set; }
 
+        public static Item Item_mjollnir { get; set; }
+
         public static Item Item_solarcrest { get; set; }
 
         public static Item Item_magicwand { get; set; }

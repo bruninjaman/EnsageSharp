@@ -9,6 +9,7 @@
         {
             Items.Duel = Hero.Spellbook.SpellR;
             Items.Heal = Hero.Spellbook.SpellW;
+            Items.Item_mjollnir = Hero.FindItem("item_mjollnir");
             Items.Item_abyssal = Hero.FindItem("item_abyssal_blade");
             Items.Item_arcane = Hero.FindItem("item_arcane_boots");
             Items.Item_armlet = Hero.FindItem("item_armlet");
